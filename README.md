@@ -11,7 +11,7 @@
 
 A new type of ridesharing app.
 
-This is the rider-only app.
+This is the driver-only app.
 
 If you would like to join the team, please contact one of the contributors *or* email [**runrteam@gmail.com**](mailto:runrteam@gmail.com).
 
