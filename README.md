@@ -1,6 +1,6 @@
 ![](./assets/mango.jpg)
 
-# ***mango-rider***
+# ***mango-driver***
 [![GitHub labels](https://img.shields.io/github/labels/atom/atom/help-wanted)](mailto:runrteam@gmail.com)
 [![All Contributors](https://img.shields.io/github/contributors/davidionita/mango.svg)](https://github.com/davidionita/mango/graphs/contributors/)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/davidionita/mango.svg)](https://github.com/davidionita/mango/issues)
