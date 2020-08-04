@@ -28,9 +28,5 @@ class FirestoreService {
 //    print(resp.runtimeType);
   }
 
-  Stream<List<RiderOffer>> getRiderOffers(LatLng driverLocation) {
-    var queryRef = _db.collection('riderOffers').where('accepted', isEqualTo: false);
-    GeoFirePoint center = geo.point(latitude: driverLocation.latitude, longitude: driverLocation.longitude);
-    return geo.collection(collectionRef: queryRef).within(center: center, radius: 30, field: 'position');
-  }
+
 }
