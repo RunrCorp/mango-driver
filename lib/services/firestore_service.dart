@@ -28,5 +28,36 @@ class FirestoreService {
 //    print(resp.runtimeType);
   }
 
-
+  //TODO RUN QUERYING THROUGH CLOUD FUNCTIONS
+  Stream<List<RiderOffer>> getRiderOffers(LatLng driverLocation) {
+    var queryRef =
+        _db.collection('riderOffers').where('accepted', isEqualTo: false);
+    print("printing query list:");
+    queryRef
+        .snapshots()
+        .map((snapshot) => snapshot.documents
+            .map((document) => RiderOffer.fromJson(document.data))
+            .toList())
+        .forEach((element) {
+      element.forEach((element) => print(element.toJson()));
+    });
+    print("driverlat: " + driverLocation.latitude.toString());
+    print("driverlong: " + driverLocation.longitude.toString());
+    GeoFirePoint center = geo.point(
+        latitude: driverLocation.latitude, longitude: driverLocation.longitude);
+    Stream<List<RiderOffer>> temp = geo
+        .collection(collectionRef: queryRef)
+        .within(center: center, radius: 100, field: 'sourceGeoPoint')
+        .map((documentSnapList) => documentSnapList.map((document) {
+              Map<String, dynamic> data = document.data;
+              print(RiderOffer.fromJson(data));
+              return RiderOffer.fromJson(data);
+            }).toList());
+    temp.listen((event) {
+      print("\n\n\n\n\n\n\n\n\n\n\n\n\nPRINTING THE THING");
+      print(event);
+      print("\n\n\n\n\n\n\n\n\n\n\n\n");
+    });
+    return temp;
+  }
 }
