@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    firestoreService.getRiderOffers(LatLng(41.007019, -74.010437));
     return MultiProvider(
       providers: [
         FutureProvider(
