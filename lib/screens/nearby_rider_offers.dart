@@ -59,6 +59,7 @@ class _OffersPageState extends State<OffersPage> {
   }
 
   Widget _buildPanel(BuildContext context) {
+    print("building panel");
     Position location = Provider.of<Position>(context);
     LatLng driverLocation = LatLng(location.latitude, location.longitude);
     // final riderOffers = Provider.of<List<RiderOffer>>(context);
