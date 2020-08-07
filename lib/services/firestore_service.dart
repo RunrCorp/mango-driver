@@ -42,6 +42,10 @@ class FirestoreService {
               .toList());
     });
 
-    return null;
+    //return null;
   }
+
+  void sendCounterOffer() {}
+
+  void sendNewPendingOffer(RiderOffer riderOffer) {}
 }
