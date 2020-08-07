@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mango_driver/models/rider_offer.dart';
+import 'package:google_maps_flutter/google_maps_fluttoffer.dart';
 import 'package:mango_driver/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
@@ -18,12 +17,10 @@ class _OffersPageState extends State<OffersPage> {
       body: _buildPanel(context),
     );
   }
+
   Future<double> counterOfferDialog(BuildContext context) {
     final controller = TextEditingController();
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return showDialog(
         context: context,
@@ -53,8 +50,7 @@ class _OffersPageState extends State<OffersPage> {
                     color: Colors.red,
                     child: Text("Confirm"),
                     onPressed: () {
-                      Navigator.of(context).pop(
-                          double.parse(controller.text));
+                      Navigator.of(context).pop(double.parse(controller.text));
                     }),
               ),
             ],
@@ -66,10 +62,7 @@ class _OffersPageState extends State<OffersPage> {
     Position location = Provider.of<Position>(context);
     LatLng driverLocation = LatLng(location.latitude, location.longitude);
     // final riderOffers = Provider.of<List<RiderOffer>>(context);
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
     //TODO FORMAT THIS MUCH BETTER
     return FutureBuilder(
         future: FirestoreService().getNearbyOffers(driverLocation),
@@ -77,8 +70,12 @@ class _OffersPageState extends State<OffersPage> {
         builder: (context, snapshot) {
           var riderOffers = snapshot.data;
           if (snapshot.hasData) {
+            print("\n\n\n\nPRINTING VALUE OF SNAPSHOT");
+            print(snapshot.data);
+            print(snapshot.data[0]);
+            print(snapshot.data[0].runtimeType);
+            print("DONE PRINTING VALUE OF SNAPSHOT\n\n\n\n\n\n");
             return ListView.builder(
-
               itemCount: riderOffers.length,
               itemBuilder: (context, index) {
                 return Card(
@@ -101,7 +98,7 @@ class _OffersPageState extends State<OffersPage> {
                               "Distance in km: " +
                                   riderOffers[index].distance.toString(),
                               style:
-                              TextStyle(fontSize: 10, color: Colors.black)),
+                                  TextStyle(fontSize: 10, color: Colors.black)),
                         ]),
                     trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -142,7 +139,7 @@ class _OffersPageState extends State<OffersPage> {
                                 onPressed: () {
                                   setState(() {
                                     riderOffers.removeWhere((thisOffer) =>
-                                    riderOffers[index] == thisOffer);
+                                        riderOffers[index] == thisOffer);
                                   });
                                 }),
                           ),
@@ -165,12 +162,10 @@ class _OffersPageState extends State<OffersPage> {
                 );
               },
             );
-          }
-          else {
+          } else {
             return CircularProgressIndicator();
           }
-        }
-    );
+        });
 
     // Widget __buildPanel(BuildContext context) {
     //   final screenWidth = MediaQuery.of(context).size.width;
@@ -256,7 +251,5 @@ class _OffersPageState extends State<OffersPage> {
     //     }).toList(),
     //   );
     // }
-
-
   }
 }
