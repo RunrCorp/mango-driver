@@ -69,6 +69,8 @@ class _OffersPageState extends State<OffersPage> {
         initialData: [],
         builder: (context, snapshot) {
           var riderOffers = snapshot.data;
+          print("PRINTING DATA");
+          print(snapshot.data);
           if (snapshot.data.length > 0) {
             print("\n\n\n\nPRINTING VALUE OF SNAPSHOT");
             print(snapshot.data);
