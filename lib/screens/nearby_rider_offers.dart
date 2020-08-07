@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mango_driver/models/rider_offer.dart';
+import 'package:mango_driver/services/firestore_service.dart';
+import 'package:provider/provider.dart';
+
 import '../models/pending_offer.dart';
 
 class OffersPage extends StatefulWidget {
@@ -9,34 +15,41 @@ class OffersPage extends StatefulWidget {
 class _OffersPageState extends State<OffersPage> {
   @override
   Widget build(BuildContext context) {
+    Position location = Provider.of<Position>(context);
+    LatLng driverLocation = LatLng(location.latitude, location.longitude);
+    FirestoreService _firestoreService = new FirestoreService();
     return Scaffold(
-      appBar: AppBar(title: Text("Current Offers")),
-      body: _buildPanel(context),
+      appBar: AppBar(title: Text("Nearby Ride Requests")),
+      body: FutureProvider<List<RiderOffer>>(
+          create:(context) =>  _firestoreService.getNearbyOffers(driverLocation),
+          child: _buildPanel(context)),
     );
   }
 
   Widget _buildPanel(BuildContext context) {
+    final riderOffers = Provider.of<List<RiderOffer>>(context);
     final screenWidth = MediaQuery.of(context).size.width;
+    //TODO FORMAT THIS MUCH BETTER
     return ListView.builder(
-      itemCount: pendingOffers.length,
+      itemCount: riderOffers.length,
       itemBuilder: (context, index) {
         return Card(
           child: ExpansionTile(
-            leading: pendingOffers[index].picture,
+            leading: Text(riderOffers[index].riderName),
             title: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(pendingOffers[index].driverName,
+                  Text(riderOffers[index].destination,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                           color: Colors.black)),
                   Text(
-                    pendingOffers[index].rating.toString(),
+                    riderOffers[index].price.toString(),
                     style: TextStyle(color: Colors.black),
                   ),
-                  Text(pendingOffers[index].vehicleName,
+                  Text("Distance in km: " + riderOffers[index].distance.toString(),
                       style: TextStyle(fontSize: 10, color: Colors.black)),
                 ]),
             trailing: Column(
@@ -44,12 +57,12 @@ class _OffersPageState extends State<OffersPage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                      pendingOffers[index].minutesAway.toString() + " min away",
+                      riderOffers[index].sourceLat.toString() + ": Lat",
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 12,
                       )),
-                  Text("\$" + pendingOffers[index].cost.toStringAsFixed(2),
+                  Text("Long: " + riderOffers[index].sourceLng.toString(),
                       style: TextStyle(
                         color: Colors.green,
                         fontSize: 28,
@@ -75,8 +88,8 @@ class _OffersPageState extends State<OffersPage> {
                         child: Text("Reject"),
                         onPressed: () {
                           setState(() {
-                            pendingOffers.removeWhere((thisOffer) =>
-                                pendingOffers[index] == thisOffer);
+                            riderOffers.removeWhere((thisOffer) =>
+                                riderOffers[index] == thisOffer);
                           });
                         }),
                   ),
@@ -106,10 +119,12 @@ class _OffersPageState extends State<OffersPage> {
   //   return ExpansionPanelList(
   //     expansionCallback: (int index, bool isExpanded) {
   //       setState(() {
-  //         pendingOffers[index].isExpanded = !isExpanded;
+  //         riderOffers
+  //        [index].isExpanded = !isExpanded;
   //       });
   //     },
-  //     children: pendingOffers.map<ExpansionPanel>((PendingOffer offer) {
+  //     children: riderOffers
+  //    .map<ExpansionPanel>((PendingOffer offer) {
   //       return ExpansionPanel(
   //         headerBuilder: (BuildContext context, bool isExpanded) {
   //           return ListTile(
@@ -160,7 +175,7 @@ class _OffersPageState extends State<OffersPage> {
   //                     child: Text("Reject"),
   //                     onPressed: () {
   //                       setState(() {
-  //                         pendingOffers
+  //                         riderOffers
   //                             .removeWhere((thisOffer) => offer == thisOffer);
   //                       });
   //                     }),

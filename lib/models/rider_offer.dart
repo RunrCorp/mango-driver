@@ -8,6 +8,8 @@ class RiderOffer {
   String source;
   num sourceLat;
   num sourceLng;
+  double distance;
+  String riderName;
 //  GeoFirePoint myLocation;
 
   RiderOffer(
@@ -17,7 +19,10 @@ class RiderOffer {
       @required this.destinationLng,
       @required this.source,
       @required this.sourceLat,
-      @required this.sourceLng}) {
+      @required this.sourceLng,
+      @required this.distance,
+        @required this.riderName
+      }) {
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = geo.point(latitude: this.sourceLat, longitude: this.sourceLng);
   }
@@ -30,8 +35,14 @@ class RiderOffer {
     source = parsedJson['source'];
     sourceLat = parsedJson['sourceLat'];
     sourceLng = parsedJson['sourceLng'];
+    riderName = parsedJson['riderName'];
+    //distance = parsedJson['distance'];
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = parsedJson["geohash"];
+  }
+
+  void setDistance(double distance_param){
+    distance = distance_param;
   }
 
   Map<String, dynamic> toJson() {

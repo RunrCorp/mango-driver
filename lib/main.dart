@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart'; // flutter_config
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mango_driver/screens/home.dart';
 import 'package:mango_driver/screens/login_page.dart';
 import 'package:mango_driver/services/firestore_service.dart';
@@ -25,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //firestoreService.getRiderOffers(LatLng(41.007019, -74.010437));
     return MultiProvider(
       providers: [
         FutureProvider(

@@ -29,7 +29,7 @@ class FirestoreService {
   }
 
   //TODO RUN QUERYING THROUGH CLOUD FUNCTIONS
-  Future<void> getNearbyOffers(LatLng driverLocation) {
+  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) {
     // var queryRef =
     //     _db.collection('riderOffers').where('accepted', isEqualTo: false);
     // print("printing query list:");
@@ -64,15 +64,25 @@ class FirestoreService {
     final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
       functionName: 'getNearbyOffers',
     );
-    var data = {'sourceLat' : driverLocation.latitude,
-      'sourceLng' : driverLocation.longitude,};
+    var data = {
+      'sourceLat': driverLocation.latitude,
+      'sourceLng': driverLocation.longitude,
+    };
     callable.call(data).then((resp) {
       print("print response getNearbyOffers:");
       print(resp);
       print(resp.runtimeType);
       print(resp.data);
+      List<RiderOffer> offers = [];
+      for (int i = 0; i < resp.data.length; i++){
+        var documentData = resp.data["documentData"];
+        var distance = resp.data["distance"];
+        RiderOffer offer = RiderOffer.fromJson(documentData);
+        offer.setDistance(distance);
+        offers.add(offer);
+      }
       print(resp.data.runtimeType);
-
+      return offers;
     }).catchError((err) {
       print(err);
     });
