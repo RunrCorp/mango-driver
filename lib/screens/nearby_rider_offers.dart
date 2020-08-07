@@ -64,8 +64,8 @@ class _OffersPageState extends State<OffersPage> {
     LatLng driverLocation = LatLng(location.latitude, location.longitude);
     // final riderOffers = Provider.of<List<RiderOffer>>(context);
     final screenWidth = MediaQuery.of(context).size.width;
-    //TODO FORMAT THIS MUCH BETTER
     print("returning future builder");
+    //TODO FORMAT THIS MUCH BETTER
     return FutureBuilder(
         future: FirestoreService().getNearbyOffers(driverLocation),
         initialData: [],
