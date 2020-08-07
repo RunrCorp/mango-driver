@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
@@ -75,8 +77,12 @@ class FirestoreService {
       for (int i = 0; i < resp.data.length; i++) {
         print(resp.data[i]);
         print(resp.data[i].runtimeType);
-        var documentData = resp.data[i]["documentData"];
-        var distance = resp.data[i]["distance"];
+
+        //gets each "location" object
+        Map<String, dynamic> data = json.decode(resp.data[i]);
+
+        var documentData = data["documentData"];
+        var distance = data["distance"];
         RiderOffer offer = RiderOffer.fromJson(documentData);
         offer.setDistance(distance);
         offers.add(offer);
