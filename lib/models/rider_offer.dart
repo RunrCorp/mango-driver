@@ -26,7 +26,7 @@ class RiderOffer {
     //myLocation = geo.point(latitude: this.sourceLat, longitude: this.sourceLng);
   }
 
-  RiderOffer.fromJson(Map<String, dynamic> parsedJson) {
+  RiderOffer.fromJson(Map<dynamic, dynamic> parsedJson) {
     price = parsedJson['price'];
     destination = parsedJson['destination'];
     destinationLat = parsedJson['destinationLat'];
