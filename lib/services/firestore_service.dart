@@ -84,6 +84,10 @@ class FirestoreService {
         print(data.keys);
         var documentData = data["documentData"];
         var distance = data["distance"];
+        print("printing documentdata:");
+        print(documentData);
+        print("printing distance");
+        print(distance);
         RiderOffer offer = RiderOffer.fromJson(documentData);
         print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
         print(distance.runtimeType);
