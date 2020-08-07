@@ -89,9 +89,8 @@ class FirestoreService {
         print(documentData.runtimeType);
         print("printing distance");
         print(distance);
-        Map<String, String> documentDataMap = jsonDecode(documentData);
-        RiderOffer offer = RiderOffer.fromJson(
-           documentDataMap );
+        Map<String, String> documentDataMap = jsonDecode(documentData) as Map<String, String>;
+        RiderOffer offer = RiderOffer.fromJson(documentDataMap);
         print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
         print(distance.runtimeType);
         offer.setDistance(distance);
