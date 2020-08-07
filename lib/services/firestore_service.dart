@@ -70,9 +70,11 @@ class FirestoreService {
     };
     callable.call(data).then((resp) {
       List<RiderOffer> offers = [];
+
       for (int i = 0; i < resp.data.length; i++) {
-        var documentData = resp.data["documentData"];
-        var distance = resp.data["distance"];
+
+        var documentData = resp.data[i]["documentData"];
+        var distance = resp.data[i]["distance"];
         RiderOffer offer = RiderOffer.fromJson(documentData);
         offer.setDistance(distance);
         offers.add(offer);
