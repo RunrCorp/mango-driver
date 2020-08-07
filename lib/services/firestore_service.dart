@@ -28,7 +28,7 @@ class FirestoreService {
 //    print(resp.runtimeType);
   }
 
-  //TODO RUN QUERYING THROUGH CLOUD FUNCTIONS
+  //TODO MAKE THIS BETTER
   Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) {
     // var queryRef =
     //     _db.collection('riderOffers').where('accepted', isEqualTo: false);
@@ -80,6 +80,7 @@ class FirestoreService {
         print(documentData);
         var distance = resp.data[i]["distance"];
         RiderOffer offer = RiderOffer.fromJson(documentData);
+        offers.add(offer);
 
 //        offer.setDistance(distance);
 //        offers.add(offer);
