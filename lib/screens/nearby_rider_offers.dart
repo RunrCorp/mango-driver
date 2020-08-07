@@ -83,7 +83,7 @@ class _OffersPageState extends State<OffersPage> {
             if (snapshot.hasData &&
                 !snapshot.hasError &&
                 snapshot.data.length > 0) {
-              //TODO UI TEAM DO YOUR WORK IN HERE. THE LIST IS CALLED riderOffers. you got this
+              //TODO UI TEAM DO YOUR WORK IN HERE. THE LIST IS CALLED riderOffers. you got this. i believe in you - arjun
               List<RiderOffer> riderOffers = snapshot.data;
               return ListView.builder(
                 itemCount: riderOffers.length,
