@@ -28,8 +28,11 @@ class RiderOffer {
 //SHOULD BE A MAP OF STRING, STRING, BUT DYNAMIC IS NECESSARY TO MAKE IT WORK
   RiderOffer.fromJson(Map<String, dynamic> parsedJson) {
     print("calling fromJson");
+
+    print(parsedJson);
     print(parsedJson["price"]);
     price = double.parse(parsedJson['price']);
+    print("got price");
     destination = parsedJson['destination'];
     destinationLat = double.parse(parsedJson['destinationLat']);
     destinationLng = double.parse(parsedJson['destinationLng']);
