@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,7 +95,7 @@ class FirestoreService {
 //        Map<String, String> documentDataMap =
 //            jsonDecode(documentData) as Map<String, String>;
         Map<String, dynamic> documentDataMap =
-            Map<String, dynamic>.from(jsonDecode(documentData));
+            HashMap<String, dynamic>.from(jsonDecode(documentData));
         print(documentDataMap);
         RiderOffer offer = RiderOffer.fromJson(documentDataMap);
         print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
