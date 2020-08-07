@@ -69,10 +69,6 @@ class FirestoreService {
       'sourceLng': driverLocation.longitude,
     };
     callable.call(data).then((resp) {
-      print("print response getNearbyOffers:");
-      print(resp);
-      print(resp.runtimeType);
-      print(resp.data);
       List<RiderOffer> offers = [];
       for (int i = 0; i < resp.data.length; i++) {
         var documentData = resp.data["documentData"];
@@ -81,7 +77,9 @@ class FirestoreService {
         offer.setDistance(distance);
         offers.add(offer);
       }
-      print(resp.data.runtimeType);
+      print("\n\n\n\n\nPRINTING THE OFFERS LIST");
+      print(offers);
+      print("DONE PRINTING OFFERS LIST\N\N\N\N\N");
       return offers;
     }).catchError((err) {
       print(err);
