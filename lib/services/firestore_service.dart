@@ -73,9 +73,13 @@ class FirestoreService {
       List<RiderOffer> offers = [];
 
       for (int i = 0; i < resp.data.length; i++) {
-        print("resp.data[i]");
-        print(resp.data[i]);
-        print(resp.data[i].runtimeType);
+        print("documentData:");
+//        print(resp.data[i]);
+//        print(resp.data[i].runtimeType);
+        var documentData = resp.data[i]["documentData"];
+        print(documentData);
+        var distance = resp.data[i]["distance"];
+        RiderOffer offer = RiderOffer.fromJson(documentData);
 
 //        offer.setDistance(distance);
 //        offers.add(offer);
