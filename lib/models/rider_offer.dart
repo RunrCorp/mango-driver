@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class RiderOffer {
-  double price;
+  num price;
   String destination;
-  double destinationLat;
-  double destinationLng;
+  num destinationLat;
+  num destinationLng;
   String source;
   num sourceLat;
   num sourceLng;
@@ -32,7 +32,7 @@ class RiderOffer {
 //    } else {
 //      price = parsedJson['price'];
 //    }
-    price = parsedJson['price'].toDouble();
+    price = parsedJson['price'];
     destination = parsedJson['destination'];
     destinationLat = parsedJson['destinationLat'];
     destinationLng = parsedJson['destinationLng'];

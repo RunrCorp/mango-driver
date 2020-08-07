@@ -64,10 +64,12 @@ class _OffersPageState extends State<OffersPage> {
     // final riderOffers = Provider.of<List<RiderOffer>>(context);
     final screenWidth = MediaQuery.of(context).size.width;
     //TODO FORMAT THIS MUCH BETTER
+    print("returning future builder");
     return FutureBuilder(
         future: FirestoreService().getNearbyOffers(driverLocation),
         initialData: [],
         builder: (context, snapshot) {
+          print("enter builder");
           var riderOffers = snapshot.data;
           print("PRINTING DATA");
           print(snapshot.data);
