@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mango_driver/models/pending_offer_db.dart';
 import 'package:mango_driver/models/rider_offer.dart';
 
 class FirestoreService {
@@ -28,5 +29,19 @@ class FirestoreService {
 //    print(resp.runtimeType);
   }
 
+  Stream<List<PendingOfferDb>> getPendingOffers() {
+    FirebaseAuth.instance.currentUser().then((FirebaseUser user) {
+      return _db
+          .collection('pendingOffers')
+          .where("driverUid", isEqualTo: user.uid)
+          .where("currentOffer", isEqualTo: true)
+          .orderBy("timestamp")
+          .snapshots()
+          .map((snapshot) => snapshot.documents
+              .map((document) => PendingOfferDb.fromJson(document.data))
+              .toList());
+    });
 
+    return null;
+  }
 }
