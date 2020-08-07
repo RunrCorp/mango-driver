@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -70,7 +71,10 @@ class _OffersPageState extends State<OffersPage> {
         future: FirestoreService().getNearbyOffers(driverLocation),
         initialData: [],
         builder: (context, snapshot) {
-          print("enter builder");
+          if (snapshot.connectionState == ConnectionState.none){
+            return Text("connectionstate.none");
+          }
+            print("enter builder");
           print(snapshot.connectionState);
           var riderOffers = snapshot.data;
           print("PRINTING DATA");
