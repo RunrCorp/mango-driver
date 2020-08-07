@@ -163,7 +163,9 @@ class _OffersPageState extends State<OffersPage> {
               },
             );
           } else {
-            return CircularProgressIndicator();
+            return Center(
+              child: Text("No nearby offers to display."),
+            );
           }
         });
 
