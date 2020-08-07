@@ -29,7 +29,7 @@ class FirestoreService {
   }
 
   //TODO MAKE THIS BETTER
-  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) {
+  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) async{
     // var queryRef =
     //     _db.collection('riderOffers').where('accepted', isEqualTo: false);
     // print("printing query list:");

@@ -71,10 +71,10 @@ class _OffersPageState extends State<OffersPage> {
         future: FirestoreService().getNearbyOffers(driverLocation),
         initialData: [],
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none){
+          if (snapshot.connectionState == ConnectionState.none) {
             return Text("connectionstate.none");
           }
-            print("enter builder");
+          print("enter builder");
           print(snapshot.connectionState);
           var riderOffers = snapshot.data;
           print("PRINTING DATA");
