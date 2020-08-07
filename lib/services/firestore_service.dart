@@ -80,7 +80,8 @@ class FirestoreService {
 
         //gets each "location" object
         Map<String, dynamic> data = json.decode(resp.data[i]);
-
+        print(data);
+        print(data.keys);
         var documentData = data["documentData"];
         var distance = data["distance"];
         RiderOffer offer = RiderOffer.fromJson(documentData);
