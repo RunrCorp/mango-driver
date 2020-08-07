@@ -25,9 +25,14 @@ class RiderOffer {
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = geo.point(latitude: this.sourceLat, longitude: this.sourceLng);
   }
-
+//string, dynamic
   RiderOffer.fromJson(Map<dynamic, dynamic> parsedJson) {
-    price = parsedJson['price'];
+//    if (parsedJson["price"] is int) {
+//      price = parsedJson['price'].toDouble();
+//    } else {
+//      price = parsedJson['price'];
+//    }
+    price = parsedJson['price'].toDouble();
     destination = parsedJson['destination'];
     destinationLat = parsedJson['destinationLat'];
     destinationLng = parsedJson['destinationLng'];
