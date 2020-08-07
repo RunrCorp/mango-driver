@@ -95,7 +95,7 @@ class FirestoreService {
 //        Map<String, String> documentDataMap =
 //            jsonDecode(documentData) as Map<String, String>;
         Map<String, dynamic> documentDataMap =
-            HashMap<String, dynamic>.from(jsonDecode(documentData));
+            Map<String, dynamic>.from(jsonDecode(documentData));
         print(documentDataMap);
         RiderOffer offer = RiderOffer.fromJson(documentDataMap);
         print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
