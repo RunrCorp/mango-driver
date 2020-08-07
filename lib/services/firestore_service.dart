@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
@@ -75,37 +73,19 @@ class FirestoreService {
       List<RiderOffer> offers = [];
 
       for (int i = 0; i < resp.data.length; i++) {
+        print("resp.data[i]");
         print(resp.data[i]);
         print(resp.data[i].runtimeType);
 
-        //gets each "location" object
-        Map<String, dynamic> data = json.decode(resp.data[i]);
-        print(data);
-        print(data.keys);
-        var documentData = data["documentData"];
-        var distance = data["distance"];
-        print("printing documentdata:");
-        print(documentData);
-        print("printing sourceLat:");
-        //print(documentData["sourceLat"]);
-        print(documentData.runtimeType);
-        print("printing distance");
-        print(distance);
-//        Map<String, String> documentDataMap =
-//            jsonDecode(documentData) as Map<String, String>;
-        Map<String, dynamic> documentDataMap =
-            Map<String, dynamic>.from(jsonDecode(documentData));
-        print(documentDataMap);
-        RiderOffer offer = RiderOffer.fromJson(documentDataMap);
-        print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
-        print(distance.runtimeType);
-        offer.setDistance(distance);
-        offers.add(offer);
+//        offer.setDistance(distance);
+//        offers.add(offer);
       }
       print("\n\n\n\n\nPRINTING THE OFFERS LIST");
       print(offers);
       print("DONE PRINTING OFFERS LIST\N\N\N\N\N");
       return offers;
+    }).catchError((err) {
+      print(err);
     });
   }
 }
