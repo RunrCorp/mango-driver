@@ -8,7 +8,7 @@ class RiderOffer {
   String source;
   num sourceLat;
   num sourceLng;
-  double distance;
+  num distance;
   String riderName;
 //  GeoFirePoint myLocation;
 
@@ -45,8 +45,8 @@ class RiderOffer {
     //myLocation = parsedJson["geohash"];
   }
 
-  void setDistance(double distance_param) {
-    distance = distance_param;
+  void setDistance(num distanceParam) {
+    distance = distanceParam;
   }
 
   Map<String, dynamic> toJson() {
