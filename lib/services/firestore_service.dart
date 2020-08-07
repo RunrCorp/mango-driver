@@ -69,6 +69,7 @@ class FirestoreService {
       'sourceLng': driverLocation.longitude,
     };
     callable.call(data).then((resp) {
+      print(resp.data.runtimeType);
       List<RiderOffer> offers = [];
 
       for (int i = 0; i < resp.data.length; i++) {
