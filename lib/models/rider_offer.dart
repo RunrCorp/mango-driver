@@ -31,7 +31,7 @@ class RiderOffer {
 
     print(parsedJson);
     print(parsedJson["price"]);
-    print(parsedJson["pricee"].runtimeType);
+    print(parsedJson["price"].runtimeType);
     price = double.parse(parsedJson['price']);
     print("got price");
     destination = parsedJson['destination'];
