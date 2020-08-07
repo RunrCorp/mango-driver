@@ -87,7 +87,7 @@ class FirestoreService {
       }
       print("\n\n\n\n\nPRINTING THE OFFERS LIST");
       print(offers);
-      print("DONE PRINTING OFFERS LIST\N\N\N\N\N");
+      print("DONE PRINTING OFFERS LIST\n\n\n\n\n");
       return offers;
     });
   }
