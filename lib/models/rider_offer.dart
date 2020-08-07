@@ -21,8 +21,7 @@ class RiderOffer {
       @required this.sourceLat,
       @required this.sourceLng,
       @required this.distance,
-        @required this.riderName
-      }) {
+      @required this.riderName}) {
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = geo.point(latitude: this.sourceLat, longitude: this.sourceLng);
   }
@@ -41,7 +40,7 @@ class RiderOffer {
     //myLocation = parsedJson["geohash"];
   }
 
-  void setDistance(double distance_param){
+  void setDistance(double distance_param) {
     distance = distance_param;
   }
 
