@@ -86,10 +86,15 @@ class FirestoreService {
         var distance = data["distance"];
         print("printing documentdata:");
         print(documentData);
+        print("printing sourceLat:");
+        print(documentData["sourceLat"]);
         print(documentData.runtimeType);
         print("printing distance");
         print(distance);
-        Map<String, String> documentDataMap = jsonDecode(documentData) as Map<String, String>;
+//        Map<String, String> documentDataMap =
+//            jsonDecode(documentData) as Map<String, String>;
+        Map<String, dynamic> documentDataMap = Map<String, dynamic>.from(jsonDecode(documentData));
+        print(documentDataMap);
         RiderOffer offer = RiderOffer.fromJson(documentDataMap);
         print("\n\nPRINTING DISTANCE RUNTIME TYPE:");
         print(distance.runtimeType);
