@@ -84,8 +84,6 @@ class FirestoreService {
       print(offers);
       print("DONE PRINTING OFFERS LIST\N\N\N\N\N");
       return offers;
-    }).catchError((err) {
-      print(err);
     });
   }
 }
