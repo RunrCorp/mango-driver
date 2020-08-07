@@ -29,7 +29,7 @@ class FirestoreService {
   }
 
   //TODO MAKE THIS BETTER
-  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) async{
+  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) async {
     // var queryRef =
     //     _db.collection('riderOffers').where('accepted', isEqualTo: false);
     // print("printing query list:");
@@ -68,28 +68,33 @@ class FirestoreService {
       'sourceLat': driverLocation.latitude,
       'sourceLng': driverLocation.longitude,
     };
-    callable.call(data).then((resp) {
-      print(resp.data.runtimeType);
-      List<RiderOffer> offers = [];
 
-      for (int i = 0; i < resp.data.length; i++) {
-        print("documentData:");
+    var resp = await callable.call(data);
+
+    List<RiderOffer> offers = [];
+
+    for (int i = 0; i < resp.data.length; i++) {
+      print("documentData:");
 //        print(resp.data[i]);
 //        print(resp.data[i].runtimeType);
-        var documentData = resp.data[i]["documentData"];
-        //print(documentData);
-        var distance = resp.data[i]["distance"];
-        RiderOffer offer = RiderOffer.fromJson(documentData);
-        offer.setDistance(distance);
-        offers.add(offer);
+      var documentData = resp.data[i]["documentData"];
+      //print(documentData);
+      var distance = resp.data[i]["distance"];
+      RiderOffer offer = RiderOffer.fromJson(documentData);
+      offer.setDistance(distance);
+      offers.add(offer);
 
 //        offer.setDistance(distance);
 //        offers.add(offer);
-      }
-      print("\n\n\n\n\nPRINTING THE OFFERS LIST");
-      print(offers);
-      print("DONE PRINTING OFFERS LIST\n\n\n\n\n");
-      return offers;
-    });
+    }
+    print("\n\n\n\n\nPRINTING THE OFFERS LIST");
+    print(offers);
+    print("DONE PRINTING OFFERS LIST\n\n\n\n\n");
+    return offers;
+
+//    callable.call(data).then((resp) {
+//      print(resp.data.runtimeType);
+//
+//    });
   }
 }
