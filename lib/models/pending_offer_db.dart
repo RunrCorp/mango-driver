@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 class PendingOfferDb {
   String destination;
@@ -20,6 +21,18 @@ class PendingOfferDb {
   bool currentOffer; //could leave out
   int numberOffer;
 
+  PendingOfferDb(
+      {@required this.destination,
+      @required this.destinationLat,
+      @required this.destinationLng,
+      @required this.price,
+      @required this.source,
+      @required this.sourceLat,
+      @required this.sourceLng,
+      @required this.riderUid,
+      @required this.riderName,
+      @required this.initialOfferId});
+
   PendingOfferDb.fromJson(Map<String, dynamic> data)
       : destination = data["destination"],
         destinationLat = data["destinationLat"],
@@ -32,4 +45,19 @@ class PendingOfferDb {
         timestamp = data["timestamp"],
         initialOfferId = data["initialOfferId"],
         numberOffer = data["numberOffer"];
+
+  Map<String, dynamic> toInitialJson() {
+    return {
+      "destination": destination,
+      "destinationLat": destinationLat,
+      "destinationLng": destinationLng,
+      "price": price,
+      "source": source,
+      "sourceLat": sourceLat,
+      "sourceLng": sourceLng,
+      "riderUid": riderUid,
+      "riderName": riderName,
+      "initialOfferId": initialOfferId,
+    };
+  }
 }

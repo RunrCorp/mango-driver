@@ -8,6 +8,7 @@ class RiderOffer {
   String source;
   num sourceLat;
   num sourceLng;
+  String riderUid;
 //  GeoFirePoint myLocation;
 
   RiderOffer(
@@ -30,6 +31,7 @@ class RiderOffer {
     source = parsedJson['source'];
     sourceLat = parsedJson['sourceLat'];
     sourceLng = parsedJson['sourceLng'];
+    riderUid = parsedJson["riderUid"];
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = parsedJson["geohash"];
   }

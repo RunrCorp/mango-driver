@@ -45,7 +45,16 @@ class FirestoreService {
     //return null;
   }
 
+  //TODO
+
   void sendCounterOffer() {}
 
-  void sendNewPendingOffer(RiderOffer riderOffer) {}
+  Future<void> sendNewPendingOffer(PendingOfferDb newPendingOffer) async {
+    final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
+      functionName: 'sendNewPendingOffer',
+    );
+
+    var resp = await callable.call(newPendingOffer.toInitialJson());
+    print(resp.data);
+  }
 }
