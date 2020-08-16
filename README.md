@@ -1,4 +1,4 @@
-![](./assets/mango.jpg)
+[](./assets/mango.jpg)
 
 # ***mango-driver***
 [![GitHub labels](https://img.shields.io/github/labels/atom/atom/help-wanted)](mailto:runrteam@gmail.com)
