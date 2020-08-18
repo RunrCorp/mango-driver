@@ -90,46 +90,56 @@ class _OffersPageState extends State<OffersPage> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ExpansionTile(
-                      leading: Text(riderOffers[index].riderName),
+                      leading: Text("Picture"),
                       title: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(riderOffers[index].destination,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.black)),
-                            Text(
-                              riderOffers[index].price.toString(),
-                              style: TextStyle(color: Colors.black),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            riderOffers[index].riderName,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            riderOffers[index].distance.toStringAsPrecision(3) +
+                                " km drive",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
                             ),
-                            Text(
-                                "Distance in km: " +
-                                    riderOffers[index].distance.toString(),
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.black)),
-                          ]),
+                          ),
+                          Text(
+                            riderOffers[index].distance.toStringAsPrecision(3) +
+                                " km away",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                       trailing: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                                riderOffers[index].sourceLat.toString() +
-                                    ": Lat",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                )),
-                            Text(
-                                "Long: " +
-                                    riderOffers[index].sourceLng.toString(),
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 28,
-                                )),
-                          ]),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text(
+                            "\$" + riderOffers[index].price.toStringAsFixed(2),
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ],
+                      ),
                       children: <Widget>[
+                        Text(
+                          "From: " + riderOffers[index].source,
+                        ),
+                        Text(
+                          "To: " + riderOffers[index].destination,
+                        ),
                         ButtonBar(
                           alignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -138,8 +148,12 @@ class _OffersPageState extends State<OffersPage> {
                               child: RaisedButton(
                                   textColor: Colors.white,
                                   color: Colors.green,
-                                  child: Text("Accept"),
-                                  onPressed: () {}),
+                                  child: Text("Offer"),
+                                  onPressed: () {
+                                    counterOfferDialog(context).then((onValue) {
+                                      print(onValue);
+                                    });
+                                  }),
                             ),
                             ButtonTheme(
                               minWidth: screenWidth / 4,
@@ -159,12 +173,8 @@ class _OffersPageState extends State<OffersPage> {
                               child: RaisedButton(
                                   textColor: Colors.white,
                                   color: Colors.blue,
-                                  child: Text("Counter"),
-                                  onPressed: () {
-                                    counterOfferDialog(context).then((onValue) {
-                                      print(onValue);
-                                    });
-                                  }),
+                                  child: Text("Open Map"),
+                                  onPressed: () {}),
                             ),
                           ],
                         ),
