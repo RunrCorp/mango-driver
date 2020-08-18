@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
 class RiderOffer {
-  double price;
+  num price;
   String destination;
-  double destinationLat;
-  double destinationLng;
+  num destinationLat;
+  num destinationLng;
   String source;
   num sourceLat;
   num sourceLng;
+  num distance;
+  String riderName;
+  String riderUid;
 //  GeoFirePoint myLocation;
 
   RiderOffer(
@@ -17,12 +20,19 @@ class RiderOffer {
       @required this.destinationLng,
       @required this.source,
       @required this.sourceLat,
-      @required this.sourceLng}) {
+      @required this.sourceLng,
+      @required this.distance,
+      @required this.riderName}) {
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = geo.point(latitude: this.sourceLat, longitude: this.sourceLng);
   }
-
-  RiderOffer.fromJson(Map<String, dynamic> parsedJson) {
+//string, dynamic
+  RiderOffer.fromJson(Map<dynamic, dynamic> parsedJson) {
+//    if (parsedJson["price"] is int) {
+//      price = parsedJson['price'].toDouble();
+//    } else {
+//      price = parsedJson['price'];
+//    }
     price = parsedJson['price'];
     destination = parsedJson['destination'];
     destinationLat = parsedJson['destinationLat'];
@@ -30,8 +40,15 @@ class RiderOffer {
     source = parsedJson['source'];
     sourceLat = parsedJson['sourceLat'];
     sourceLng = parsedJson['sourceLng'];
+    riderName = parsedJson['riderName'];
+    riderUid = parsedJson["riderUid"];
+    //distance = parsedJson['distance'];
     //Geoflutterfire geo = Geoflutterfire();
     //myLocation = parsedJson["geohash"];
+  }
+
+  void setDistance(num distanceParam) {
+    distance = distanceParam;
   }
 
   Map<String, dynamic> toJson() {

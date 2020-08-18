@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart'; // flutter_config
 import 'package:mango_driver/screens/home.dart';
 import 'package:mango_driver/screens/login_page.dart';
+import 'package:mango_driver/services/firestore_service.dart';
 import 'package:mango_driver/services/geolocation_service.dart';
 import 'package:provider/provider.dart';
 
@@ -12,14 +13,18 @@ Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await FlutterConfig.loadEnvVariables(); // flutter_config
+
   runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
   final GeoLocatorService geoLocatorService = GeoLocatorService();
+  final FirestoreService firestoreService =
+      FirestoreService(); //TODO remove this
 
   @override
   Widget build(BuildContext context) {
+    //firestoreService.getRiderOffers(LatLng(41.007019, -74.010437));
     return MultiProvider(
       providers: [
         FutureProvider(
