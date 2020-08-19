@@ -183,7 +183,7 @@ class HomePage extends StatelessWidget {
                           new OrderHistoryPage()));
                 }),
             new ListTile(
-                title: new Text("Current Offers"),
+                title: new Text("Nearby Ride Requests"),
                 trailing: Badge(
                   child: Icon(Icons.inbox),
                   badgeColor: Colors.red,
