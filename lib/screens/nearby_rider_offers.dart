@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mango_driver/models/rider_offer.dart';
+import 'package:mango_driver/models/rider_request.dart';
 import 'package:mango_driver/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +71,7 @@ class _OffersPageState extends State<OffersPage> {
     //TODO
     /*
     note to the UI team:
-    offers are stored in a RiderOffer Object which is in models/rider_offer.dart
+    offers are stored in a RiderOffer Object which is in models/rider_request.dart
     Your job is to display it correctly
      */
     return FutureBuilder(
@@ -84,7 +84,7 @@ class _OffersPageState extends State<OffersPage> {
                 !snapshot.hasError &&
                 snapshot.data.length > 0) {
               //TODO UI TEAM DO YOUR WORK IN HERE. THE LIST IS CALLED riderOffers. you got this. i believe in you - arjun
-              List<RiderOffer> riderOffers = snapshot.data;
+              List<RiderRequest> riderOffers = snapshot.data;
               return ListView.builder(
                 itemCount: riderOffers.length,
                 itemBuilder: (context, index) {
@@ -120,20 +120,8 @@ class _OffersPageState extends State<OffersPage> {
                           ),
                         ],
                       ),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            "\$" + riderOffers[index].price.toStringAsFixed(2),
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 28,
-                            ),
-                          ),
-                        ],
-                      ),
                       children: <Widget>[
+                        //TODO: Properly reformat text here
                         Text(
                           "From: " + riderOffers[index].source,
                         ),

@@ -6,7 +6,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoder/model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mango_driver/models/rider_offer.dart';
+import 'package:mango_driver/models/rider_request.dart';
 import 'package:mango_driver/services/firestore_service.dart';
 import 'package:mango_driver/services/geolocation_service.dart';
 import 'package:provider/provider.dart';
@@ -58,8 +58,6 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
       new TextEditingController(text: 'Initial value');
   TextEditingController _textControllerDestination =
       new TextEditingController(text: 'Initial value');
-  TextEditingController _textControllerPrice =
-      new TextEditingController(text: 'Initial value');
 
   void initState() {
     print('initializing state');
@@ -68,7 +66,6 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
     _textControllerSource = new TextEditingController(text: 'Initial value');
     _textControllerDestination =
         new TextEditingController(text: 'Initial value');
-    _textControllerPrice = new TextEditingController(text: 'Initial value');
   }
 
   void setSourceAndDestinationIcons() async {
@@ -82,10 +79,8 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
   void userConfirmRide() async {
     source = _textControllerSource.text;
     destination = _textControllerDestination.text;
-    price = double.parse(_textControllerPrice.text);
 
-    RiderOffer userInitialOffer = RiderOffer(
-        price: price,
+    RiderRequest userInitialOffer = RiderRequest(
         destination: destination,
         destinationLat: widget.dest_location.latitude,
         destinationLng: widget.dest_location.longitude,
@@ -134,6 +129,7 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
                 text: addressToString(widget.endingAddress));
 
             return Column(
+              //TODO: Make rows here for buffer space
               children: [
                 TextField(
                   controller: _textControllerSource,
@@ -142,10 +138,6 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
                 TextField(
                   controller: _textControllerDestination,
                   decoration: InputDecoration(hintText: "Destination"),
-                ),
-                TextField(
-                  controller: _textControllerPrice,
-                  decoration: InputDecoration(hintText: "Initial Offer Price"),
                 ),
                 FutureProvider<Set<Polyline>>(create: (_) {
                   print('CALLING FUTURE');
