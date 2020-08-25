@@ -14,10 +14,11 @@ import 'package:mango_driver/screens/confirm_ride.dart';
 import 'package:mango_driver/screens/order_history.dart';
 import 'package:mango_driver/screens/settings.dart';
 import 'package:mango_driver/services/geolocation_service.dart';
+import 'package:mango_driver/screens/active_offers.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import 'nearby_rider_offers.dart';
+import 'nearby_rider_requests.dart';
 
 class HomePage extends StatelessWidget {
   final FirebaseUser _user;
@@ -179,8 +180,7 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new OrderHistoryPage()));
+                      builder: (BuildContext context) => new OrderHistoryPage()));
                 }),
             new ListTile(
                 title: new Text("Nearby Ride Requests"),
@@ -194,6 +194,15 @@ class HomePage extends StatelessWidget {
                   position: BadgePosition.topRight(),
                 ), //new Icon(Icons.inbox),
                 onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new RequestsPage()));
+                }),
+            new ListTile(
+                title: new Text("Active Offers"),
+                trailing: new Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
                       builder: (BuildContext context) => new OffersPage()));
                 }),

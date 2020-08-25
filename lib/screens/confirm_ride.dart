@@ -80,7 +80,7 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
     source = _textControllerSource.text;
     destination = _textControllerDestination.text;
 
-    RiderRequest userInitialOffer = RiderRequest(
+    RiderRequest userInitialRequest = RiderRequest(
         destination: destination,
         destinationLat: widget.dest_location.latitude,
         destinationLng: widget.dest_location.longitude,
@@ -88,8 +88,8 @@ class _ConfirmRidePageState extends State<ConfirmRidePage> {
         sourceLat: widget.source_location.latitude,
         sourceLng: widget.source_location.longitude);
 
-    firestoreService.addRiderOffer(userInitialOffer, context);
-    firestoreService.getNearbyOffers(widget.source_location);
+    firestoreService.addRiderRequest(userInitialRequest, context);
+    firestoreService.getNearbyRequests(widget.source_location);
 
     _scaffoldState.currentState
         .showSnackBar(new SnackBar(content: new Text("Ride has been ordered")));
