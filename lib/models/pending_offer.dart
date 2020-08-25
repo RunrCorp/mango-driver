@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PendingOffer {
   Image picture;
@@ -20,6 +19,8 @@ class PendingOffer {
     @required this.cost,
     this.isExpanded = false,
   });
+
+  PendingOffer.fromPendingOfferDB() {}
 }
 
 List<PendingOffer> pendingOffers = [

@@ -11,9 +11,11 @@ class PendingOfferDb {
   num sourceLng;
   String riderUid;
   String riderName;
+  String riderImage;
   Timestamp timestamp;
   String driverUid; //could leave out
   String driverName; //could leave out
+  String driverImage;
   String initialOfferId;
   bool acceptedByDriver; //could leave out
   bool acceptedByRider; //could leave out
@@ -31,6 +33,10 @@ class PendingOfferDb {
       @required this.sourceLng,
       @required this.riderUid,
       @required this.riderName,
+        @required this.riderImage,
+        @required this.driverName,
+        @required this.driverImage,
+        @required this.driverUid,
       @required this.initialOfferId});
 
   PendingOfferDb.fromJson(Map<String, dynamic> data)
@@ -42,6 +48,10 @@ class PendingOfferDb {
         sourceLng = data["sourceLng"],
         riderUid = data["riderUid"],
         riderName = data["riderName"],
+        riderImage = data["riderImage"],
+        driverUid = data["driverUid"],
+        driverName = data["driverName"],
+        driverImage = data["driverImage"],
         timestamp = data["timestamp"],
         initialOfferId = data["initialOfferId"],
         numberOffer = data["numberOffer"];
@@ -57,6 +67,10 @@ class PendingOfferDb {
       "sourceLng": sourceLng,
       "riderUid": riderUid,
       "riderName": riderName,
+      "riderImage": riderImage,
+      "driverUid" : driverUid,
+      "driverName" : driverName,
+      "driverImage" : driverImage,
       "initialOfferId": initialOfferId,
     };
   }
