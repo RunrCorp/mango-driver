@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mango_driver/models/rider_offer.dart';
 import 'package:mango_driver/services/firestore_service.dart';
 import 'package:provider/provider.dart';
+import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 
 class OffersPage extends StatefulWidget {
   @override
@@ -18,6 +19,75 @@ class _OffersPageState extends State<OffersPage> {
       appBar: AppBar(title: Text("Nearby Ride Requests")),
       body: _buildPanel(context),
     );
+  }
+
+  Future<Null> linkMapDialog(BuildContext context, var mapType, var destination,
+      var destinationTitle, var origin, var originTitle) {
+    final controller = TextEditingController();
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    void toRider() {
+      mapLauncher.MapLauncher.showDirections(
+        mapType: mapType,
+        destination: origin,
+        destinationTitle: originTitle,
+      );
+    }
+
+    void fromRiderToDestination() {
+      mapLauncher.MapLauncher.showDirections(
+        mapType: mapType,
+        destination: destination,
+        destinationTitle: destinationTitle,
+        origin: origin,
+        originTitle: originTitle,
+      );
+    }
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Choose an option"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: screenWidth,
+                  child: RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.red,
+                      child: Text("To Rider"),
+                      onPressed: () {
+                        toRider();
+                      }),
+                ),
+                ButtonTheme(
+                  minWidth: screenWidth,
+                  child: RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      child: Text("From Rider to Destination"),
+                      onPressed: () {
+                        fromRiderToDestination();
+                      }),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              ButtonTheme(
+                minWidth: screenWidth / 4,
+                child: RaisedButton(
+                    textColor: Colors.grey,
+                    color: Colors.white,
+                    child: Text("Return"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
+              ),
+            ],
+          );
+        });
   }
 
   Future<double> counterOfferDialog(BuildContext context) {
@@ -174,7 +244,28 @@ class _OffersPageState extends State<OffersPage> {
                                   textColor: Colors.white,
                                   color: Colors.blue,
                                   child: Text("Open Map"),
-                                  onPressed: () {}),
+                                  onPressed: () async {
+                                    var mapType = mapLauncher.MapType.google;
+
+                                    if (await mapLauncher.MapLauncher
+                                        .isMapAvailable(
+                                            mapLauncher.MapType.apple)) {
+                                      mapType = mapLauncher.MapType.apple;
+                                    }
+
+                                    linkMapDialog(
+                                      context,
+                                      mapLauncher.MapType.google,
+                                      mapLauncher.Coords(
+                                          riderOffers[index].destinationLat,
+                                          riderOffers[index].destinationLng),
+                                      riderOffers[index].destination,
+                                      mapLauncher.Coords(
+                                          riderOffers[index].sourceLat,
+                                          riderOffers[index].sourceLng),
+                                      riderOffers[index].source,
+                                    );
+                                  }),
                             ),
                           ],
                         ),
