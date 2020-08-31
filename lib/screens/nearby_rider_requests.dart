@@ -245,13 +245,13 @@ class _RequestsPageState extends State<RequestsPage> {
                                       context,
                                       mapLauncher.MapType.google,
                                       mapLauncher.Coords(
-                                          riderOffers[index].destinationLat,
-                                          riderOffers[index].destinationLng),
-                                      riderOffers[index].destination,
+                                          riderRequests[index].destinationLat,
+                                          riderRequests[index].destinationLng),
+                                      riderRequests[index].destination,
                                       mapLauncher.Coords(
-                                          riderOffers[index].sourceLat,
-                                          riderOffers[index].sourceLng),
-                                      riderOffers[index].source,
+                                          riderRequests[index].sourceLat,
+                                          riderRequests[index].sourceLng),
+                                      riderRequests[index].source,
                                     );
                                   }),
                             ),
