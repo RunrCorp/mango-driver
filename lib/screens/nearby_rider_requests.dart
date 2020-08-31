@@ -134,16 +134,9 @@ class _RequestsPageState extends State<RequestsPage> {
     print("building panel");
     Position location = Provider.of<Position>(context);
     LatLng driverLocation = LatLng(location.latitude, location.longitude);
-    // final riderOffers = Provider.of<List<RiderOffer>>(context);
     final screenWidth = MediaQuery.of(context).size.width;
     print("returning future builder");
     //TODO FORMAT THIS MUCH BETTER
-    //TODO
-    /*
-    note to the UI team:
-    offers are stored in a RiderOffer Object which is in models/rider_request.dart
-    Your job is to display it correctly
-     */
     return FutureBuilder(
         future: FirestoreService().getNearbyRequests(driverLocation),
         initialData: [],

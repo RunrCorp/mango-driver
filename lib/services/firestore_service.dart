@@ -60,9 +60,9 @@ class FirestoreService {
     // });
     // return temp;
 
-    print("getting reqeusts");
+    print("getting requests");
     final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
-      functionName: 'getNearbyReqeusts',
+      functionName: 'getNearbyRequests',
     );
     var data = {
       'sourceLat': driverLocation.latitude,
@@ -71,7 +71,7 @@ class FirestoreService {
 
     var resp = await callable.call(data);
 
-    List<RiderRequest> offers = [];
+    List<RiderRequest> requests = [];
 
     for (int i = 0; i < resp.data.length; i++) {
       print("documentData:");
@@ -82,15 +82,15 @@ class FirestoreService {
       var distance = resp.data[i]["distance"];
       RiderRequest request = RiderRequest.fromJson(documentData);
       request.setDistance(distance);
-      offers.add(request);
+      requests.add(request);
 
 //        offer.setDistance(distance);
 //        offers.add(offer);
     }
     print("\n\n\n\n\nPRINTING THE REQUESTS LIST");
-    print(offers);
+    print(requests);
     print("DONE PRINTING REQUESTS LIST\n\n\n\n\n");
-    return offers;
+    return requests;
 
 //    callable.call(data).then((resp) {
 //      print(resp.data.runtimeType);
