@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mango_driver/models/rider_offer.dart';
+import 'package:mango_driver/models/rider_request.dart';
 import 'package:mango_driver/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 import 'package:map_launcher/map_launcher.dart' as mapLauncher;
 
-class OffersPage extends StatefulWidget {
+class RequestsPage extends StatefulWidget {
   @override
-  _OffersPageState createState() => _OffersPageState();
+  _RequestsPageState createState() => _RequestsPageState();
 }
 
-class _OffersPageState extends State<OffersPage> {
+class _RequestsPageState extends State<RequestsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +98,7 @@ class _OffersPageState extends State<OffersPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Make a counter offer"),
+            title: Text("Make an offer"),
             content: TextField(
               controller: controller,
               decoration: InputDecoration(labelText: "Enter an amount"),
@@ -141,11 +141,11 @@ class _OffersPageState extends State<OffersPage> {
     //TODO
     /*
     note to the UI team:
-    offers are stored in a RiderOffer Object which is in models/rider_offer.dart
+    offers are stored in a RiderOffer Object which is in models/rider_request.dart
     Your job is to display it correctly
      */
     return FutureBuilder(
-        future: FirestoreService().getNearbyOffers(driverLocation),
+        future: FirestoreService().getNearbyRequests(driverLocation),
         initialData: [],
         // ignore: missing_return
         builder: (context, snapshot) {
@@ -153,10 +153,10 @@ class _OffersPageState extends State<OffersPage> {
             if (snapshot.hasData &&
                 !snapshot.hasError &&
                 snapshot.data.length > 0) {
-              //TODO UI TEAM DO YOUR WORK IN HERE. THE LIST IS CALLED riderOffers. you got this. i believe in you - arjun
-              List<RiderOffer> riderOffers = snapshot.data;
+              //TODO UI TEAM DO YOUR WORK IN HERE. THE LIST IS CALLED riderRequests. you got this. i believe in you - arjun
+              List<RiderRequest> riderRequests = snapshot.data;
               return ListView.builder(
-                itemCount: riderOffers.length,
+                itemCount: riderRequests.length,
                 itemBuilder: (context, index) {
                   return Card(
                     child: ExpansionTile(
@@ -166,14 +166,14 @@ class _OffersPageState extends State<OffersPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            riderOffers[index].riderName,
+                            riderRequests[index].riderName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 color: Colors.black),
                           ),
                           Text(
-                            riderOffers[index].distance.toStringAsPrecision(3) +
+                            riderRequests[index].distance.toStringAsPrecision(3) +
                                 " km drive",
                             style: TextStyle(
                               color: Colors.red,
@@ -181,7 +181,7 @@ class _OffersPageState extends State<OffersPage> {
                             ),
                           ),
                           Text(
-                            riderOffers[index].distance.toStringAsPrecision(3) +
+                            riderRequests[index].distance.toStringAsPrecision(3) +
                                 " km away",
                             style: TextStyle(
                               color: Colors.red,
@@ -190,25 +190,13 @@ class _OffersPageState extends State<OffersPage> {
                           ),
                         ],
                       ),
-                      trailing: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            "\$" + riderOffers[index].price.toStringAsFixed(2),
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 28,
-                            ),
-                          ),
-                        ],
-                      ),
                       children: <Widget>[
+                        //TODO: Properly reformat text here
                         Text(
-                          "From: " + riderOffers[index].source,
+                          "From: " + riderRequests[index].source,
                         ),
                         Text(
-                          "To: " + riderOffers[index].destination,
+                          "To: " + riderRequests[index].destination,
                         ),
                         ButtonBar(
                           alignment: MainAxisAlignment.spaceEvenly,
@@ -220,7 +208,7 @@ class _OffersPageState extends State<OffersPage> {
                                   color: Colors.green,
                                   child: Text("Offer"),
                                   onPressed: () {
-                                    counterOfferDialog(context).then((onValue) {
+                                    offerDialog(context).then((onValue) {
                                       print(onValue);
                                     });
                                   }),
@@ -233,8 +221,8 @@ class _OffersPageState extends State<OffersPage> {
                                   child: Text("Reject"),
                                   onPressed: () {
                                     setState(() {
-                                      riderOffers.removeWhere((thisOffer) =>
-                                          riderOffers[index] == thisOffer);
+                                      riderRequests.removeWhere((thisOffer) =>
+                                          riderRequests[index] == thisOffer);
                                     });
                                   }),
                             ),
@@ -277,7 +265,7 @@ class _OffersPageState extends State<OffersPage> {
             } else {
               //no data
               return Center(
-                child: Text("No nearby offers to display."),
+                child: Text("No nearby requests to display."),
               );
             }
           } else {

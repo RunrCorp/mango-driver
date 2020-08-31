@@ -3,20 +3,20 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mango_driver/models/rider_offer.dart';
+import 'package:mango_driver/models/rider_request.dart';
 
 class FirestoreService {
   Firestore _db = Firestore.instance;
   Geoflutterfire geo = Geoflutterfire();
 
-  Future<void> addRiderOffer(
-      RiderOffer initialOffer, BuildContext context) async {
-    print("adding offer");
+  Future<void> addRiderRequest(
+      RiderRequest initialRequest, BuildContext context) async {
+    print("adding request");
     final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
-      functionName: 'addRiderOffer',
+      functionName: 'addRiderRequest',
     );
-    callable.call(initialOffer.toJson()).then((resp) {
-      print("print response addRiderOffer:");
+    callable.call(initialRequest.toJson()).then((resp) {
+      print("print response addRiderRequest:");
       print(resp);
       print(resp.runtimeType);
     }).catchError((err) {
@@ -29,7 +29,7 @@ class FirestoreService {
   }
 
   //TODO MAKE THIS BETTER
-  Future<List<RiderOffer>> getNearbyOffers(LatLng driverLocation) async {
+  Future<List<RiderRequest>> getNearbyRequests(LatLng driverLocation) async {
     // var queryRef =
     //     _db.collection('riderOffers').where('accepted', isEqualTo: false);
     // print("printing query list:");
@@ -60,9 +60,9 @@ class FirestoreService {
     // });
     // return temp;
 
-    print("getting offers");
+    print("getting reqeusts");
     final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
-      functionName: 'getNearbyOffers',
+      functionName: 'getNearbyReqeusts',
     );
     var data = {
       'sourceLat': driverLocation.latitude,
@@ -71,7 +71,7 @@ class FirestoreService {
 
     var resp = await callable.call(data);
 
-    List<RiderOffer> offers = [];
+    List<RiderRequest> offers = [];
 
     for (int i = 0; i < resp.data.length; i++) {
       print("documentData:");
@@ -80,16 +80,16 @@ class FirestoreService {
       var documentData = resp.data[i]["documentData"];
       //print(documentData);
       var distance = resp.data[i]["distance"];
-      RiderOffer offer = RiderOffer.fromJson(documentData);
-      offer.setDistance(distance);
-      offers.add(offer);
+      RiderRequest request = RiderRequest.fromJson(documentData);
+      request.setDistance(distance);
+      offers.add(request);
 
 //        offer.setDistance(distance);
 //        offers.add(offer);
     }
-    print("\n\n\n\n\nPRINTING THE OFFERS LIST");
+    print("\n\n\n\n\nPRINTING THE REQUESTS LIST");
     print(offers);
-    print("DONE PRINTING OFFERS LIST\n\n\n\n\n");
+    print("DONE PRINTING REQUESTS LIST\n\n\n\n\n");
     return offers;
 
 //    callable.call(data).then((resp) {
