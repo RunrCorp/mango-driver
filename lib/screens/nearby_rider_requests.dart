@@ -90,7 +90,7 @@ class _RequestsPageState extends State<RequestsPage> {
         });
   }
 
-  Future<double> counterOfferDialog(BuildContext context) {
+  Future<double> offerDialog(BuildContext context) {
     final controller = TextEditingController();
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -349,7 +349,7 @@ class _RequestsPageState extends State<RequestsPage> {
     //                     color: Colors.blue,
     //                     child: Text("Counter"),
     //                     onPressed: () {
-    //                       counterOfferDialog(context).then((onValue) {
+    //                       offerDialog(context).then((onValue) {
     //                         print(onValue);
     //                       });
     //                     }),
